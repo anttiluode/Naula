@@ -58,4 +58,4 @@ Run 2026-10-18 on Antti's RTX 3060: all six checks in about 13 minutes. The raw 
 
 In one line: the J-lens reads names natively, and writing a colour's J-lens vector works. Stored
 values and the name-site effect are weaker than the day's interpretations claimed. Two of Gemini's
-three strongest claims did not survive. So did not Claude's own "slow core, fast residue".
+three strongest claims did not survive; neither did Claude's own "slow core, fast residue".
