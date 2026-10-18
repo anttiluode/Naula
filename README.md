@@ -13,12 +13,12 @@ the model's own attention doing the routing. N2 below tests the effect that repo
 
 | # | claim | source | verdict |
 |---|---|---|---|
-| N1 | G4.4's stored value was "the full stop", so the memory never held the colour | Gemini; Claude's design error | OPEN |
-| N2 | the 56.7% effect at the name token is the model's attention routing from the *subject* | Claude, Sol, Gemini | OPEN |
-| N3 | layers 21–22 have a dead zone where a stronger push gives lower accuracy | Gemini | OPEN |
-| N4 | injecting the logit-lens vector lets the 0.5B model reason (66.7%), beating the in-context ceiling | Gemini | OPEN |
-| N5 | the J-lens reads the name at its own token in the middle layers, where the logit lens reads ~0% | the paper; seen in Gate 4 | OPEN |
-| N6 | slow core, fast residue: the J-space part of an activation persists across tokens, the rest does not | Claude, from Sihti | OPEN |
+| N1 | G4.4's stored value was "the full stop", so the memory never held the colour | Gemini; Claude's design error | **OPEN**: no punctuation at all (the literal story is dead), but fixing the value doubles memory accuracy, 36% → 76% |
+| N2 | the 56.7% effect at the name token is the model's attention routing from the *subject* | Claude, Sol, Gemini | **OPEN**: name 56.7% vs other tokens 46–48%; mostly generic leakage of a large push |
+| N3 | layers 21–22 have a dead zone where a stronger push gives lower accuracy | Gemini | **VERIFIED** (shape): 100% → 33% → 100% as the push grows at layer 22; mechanism open |
+| N4 | injecting the logit-lens vector lets the 0.5B model reason (66.7%), beating the in-context ceiling | Gemini | **KILLED**: the model is at chance even when told (50.5%); 66.7% shrinks to 55.2% at 8× the items |
+| N5 | the J-lens reads the name at its own token in the middle layers, where the logit lens reads ~0% | the paper; seen in Gate 4 | **VERIFIED**: J 97–100% vs logit lens 0–4% at layers 0–15 |
+| N6 | slow core, fast residue: the J-space part of an activation persists across tokens, the rest does not | Claude, from Sihti | **KILLED**: the residue is *more* persistent than the J-core at every layer |
 
 ## Run
 
@@ -49,4 +49,13 @@ Qwen2.
 
 ## Results
 
-None yet. They go into LEDGER.md under each claim, as registered, and the table above is updated.
+Run 2026-10-18 on Antti's RTX 3060: all six checks in about 13 minutes. The raw outputs are in
+`results/`, and the full write-up is under each claim in [LEDGER.md](LEDGER.md).
+
+- **Two VERIFIED:** N3 (the shape only) and N5.
+- **Two KILLED:** N4 and N6.
+- **Two OPEN:** N1 and N2.
+
+In one line: the J-lens reads names natively, and writing a colour's J-lens vector works. Stored
+values and the name-site effect are weaker than the day's interpretations claimed. Two of Gemini's
+three strongest claims did not survive. So did not Claude's own "slow core, fast residue".

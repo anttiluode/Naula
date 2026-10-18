@@ -43,6 +43,18 @@ even the supplied-key arm reached only 35.6%.
   and something else breaks the read.
 - OPEN otherwise.
 
+**Result (2026-10-18, Antti's RTX 3060): OPEN by the registered rule. The literal "full stop" story is KILLED.**
+- (a) Read through the J-lens, the stored value is **never** punctuation as its top token (0 of 192).
+  The stored colour wins among the four 83.9% of the time. But the top tokens are a few generic
+  variants: "-green" 93 times, "\tcolor" 47, ".Blue" 28, "-blue" 15. The value is a colour-ish
+  smear pulled toward one attractor, not "yellow".
+- (b) With the same episodes and keys, the captured value scores **36.2%** (Gate 4 reported 35.6%,
+  so it reproduces) and the colour's own J-lens vector scores **76.2%**. The memory output itself
+  carries the right colour 63.1% vs 83.1% of the time.
+  - That is 4 points short of the registered 80%, hence OPEN.
+  - The value accounts for 40 points. The remaining gap is the keys: the supplied name keys overlap
+    with a mean cosine of 0.32, so 8 stored facts bleed into each other.
+
 ## N2 — "The 56.7% at the name token is the model's attention routing from the subject"
 
 **Claim.** A colour planted on the name token at layer 16 reaches the answer because the question
@@ -62,6 +74,15 @@ position attends to the subject.
   anything, not to the subject.
 - OPEN otherwise.
 
+**Result: OPEN, and mostly generic leakage.**
+- Dev selected α = 8, eight times the residual norm.
+- Test, 432 trials per site: name token **56.7%**, " color" token **48.4%**, first token **45.8%**
+  (reference: question end 100%).
+- The name beats the best control by 8.3 points: above the kill line (5), below the verify line (20).
+- Most of the 56.7% is any large push on any earlier token leaking into the answer. A small
+  subject-specific part (about 8 points, roughly 2.4 standard errors) remains.
+- For WhereToWrite, the name site is not yet shown to be special.
+
 ## N3 — "Layers 21–22 have a dead zone where a stronger push gives lower accuracy" (Gemini)
 
 **Test.** Layers 20, 21, 22; α ∈ {0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8}; test names, same trials
@@ -73,6 +94,18 @@ as G4.2. For each failure, record where the answer went: another colour, or a no
 - KILLED otherwise.
 - "Homeostatic suppression" as a *mechanism* stays OPEN either way. This test only establishes the
   shape.
+
+**Result: VERIFIED (the shape).** The largest drop is 66.9 points, at layer 22, from α 0.25 (100%)
+to α 2 (33.1%).
+- Layer 22: 100% at α = 0.25, then 33–42% for α from 0.5 to 2, then 91–100% for α ≥ 3.
+- Layer 21: 100% at α ≤ 0.5, falling to 50–64% at α 1–2, back to 100% at α ≥ 3.
+- Layer 20 keeps four-colour accuracy at 98.6–100% everywhere. But the share of trials whose top-1
+  token is a colour dips to 40% at α = 2.
+- Where the failures go, at layer 22 for α 0.5–2: four-colour accuracy, strict accuracy and "top-1
+  is a colour" are all 33.1%. So whenever any colour comes out on top it is the target. In the other
+  two thirds, the top token is not one of the four colours at all.
+- Mechanism ("homeostatic suppression"): OPEN, as registered. The data fits "moderate pushes at
+  layers 21–22 produce non-colour tokens", which matches the "-green" / ".Blue" variants seen in N1a.
 
 ## N4 — "Injecting the logit-lens vector lets the 0.5B model reason (66.7%), beating the in-context ceiling (50%)" (Gemini)
 
@@ -88,6 +121,13 @@ as G4.2. For each failure, record where the answer went: another colour, or a no
 - Otherwise: VERIFIED if logit − none ≥ 10 points with the CI of the difference excluding 0;
   KILLED if that CI includes 0.
 
+**Result: KILLED (VOID).**
+- Ceiling (fact in context) **50.5%** [49.5, 51.6]: Qwen-0.5B cannot do the task even when told.
+- None 50.3%, J 46.4% [44.3, 48.4], logit 55.2% [53.1, 57.3].
+- Logit − none = 4.9 points [2.6, 7.0]: statistically present but small. With the ceiling at chance,
+  it is a shift in yes/no bias, not reasoning.
+- Gate 4's 66.7% came from 48 items; with 384 items it shrinks to 55.2%.
+
 ## N5 — "The J-lens reads the name at its own token in the middle layers, where the logit lens reads ~0%" (replication of the paper's central claim)
 
 **Test.** Test names in 8 neutral mention sentences (not the Gate 4 questions). At the name token,
@@ -98,6 +138,13 @@ vectors, at every layer.
 - VERIFIED if J ≥ 90% and logit lens ≤ 20% at every layer from 6 to 15.
 - KILLED if the logit lens ≥ 50% at most of those layers (then the J-lens adds nothing there).
 - OPEN otherwise.
+
+**Result: VERIFIED.**
+- At the name token, in 8 neutral sentences (384 cases): the J-lens identifies the name 97–100% at
+  every layer 0–15; the logit lens scores 0–4%.
+- Identity fades after layer 15 (89, 82, 83, 80%), then collapses at layers 20–23 (28, 17, 7, 10%).
+- This replicates the paper's central claim on a small open model: the J-lens recovers content
+  where the logit lens sees nothing.
 
 ## N6 — "Slow core, fast residue": the J-space component of an activation persists across tokens; the rest of the same activation does not
 
@@ -121,6 +168,27 @@ positions in the middle layers. "The workspace is slow" is theirs. New here: whe
   exceeds that of r by ≥ 0.10 AND exceeds the random-dictionary control by ≥ 0.10.
 - KILLED if r is at least as persistent as c at those layers.
 - OPEN otherwise.
+
+**Result: KILLED.** At every layer the *residue* is more persistent from one token to the next than
+the J-space core:
+
+| layer | 4 | 8 | 12 | 16 | 20 | 23 |
+|---|---|---|---|---|---|---|
+| J-core | +0.119 | +0.163 | +0.186 | +0.203 | +0.182 | +0.119 |
+| residue | +0.183 | +0.261 | +0.284 | +0.263 | +0.239 | +0.203 |
+| random-dictionary core | +0.045 | +0.067 | +0.075 | +0.072 | +0.067 | +0.073 |
+
+Values are excess persistence at Δ = 1. The J-core holds 10–16% of the activation energy in layers
+4–20, consistent with the paper's "small fraction".
+
+Observation, not a registered claim:
+- The J-core's same-prompt null is higher than the residue's (0.158 vs 0.114 at layer 16). Its
+  content is more shared across the whole prompt.
+- The residue is smoother from one token to the next.
+- At Δ = 16 both are back at the null.
+
+So the workspace looks *prompt-wide* rather than *locally slow*. "Slow core, fast residue" is wrong
+as stated.
 
 ---
 
