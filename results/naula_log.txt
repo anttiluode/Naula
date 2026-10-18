@@ -1,0 +1,30 @@
+=== n1_full_stop 2026-10-18 12:02
+  N1a stored value read through the J-lens: top-1 is punctuation 0.0%, stored colour wins among four 83.9%; top-1 tokens [('-green', 93), ('\tcolor', 47), ('.Blue', 28), ('-blue', 15), (' color', 5), (' blue', 1), ('-yellow', 1), ('.Green', 1)]
+  N1b supplied keys (mean off-diagonal cos 0.319), N=8, 20 episodes: captured value 36.2%, J-lens value 76.2%  | colour in the memory output itself: captured 63.1%, J-lens 83.1%
+n1_full_stop: verdict OPEN  -> E:\DocsHouse\1018\Naula\results\n1_full_stop.json
+=== n2_subject_site 2026-10-18 12:03
+  N2 dev, name site: a=0.5 25.7%  a=1 47.9%  a=2 54.9%  a=4 52.8%  a=8 56.2%  -> alpha 8.0
+  N2 test, layer 16, alpha 8.0 (n=432 each): name 56.7%  color 48.4%  first 45.8%  question_end 100.0%   (question_end is reference, not a control)
+n2_subject_site: verdict OPEN  -> E:\DocsHouse\1018\Naula\results\n2_subject_site.json
+=== n3_dead_zone 2026-10-18 12:03
+  N3 layer 20: a=0.25 100%/69%  a=0.5 100%/99%  a=0.75 100%/100%  a=1 100%/89%  a=1.5 100%/62%  a=2 99%/40%  a=3 100%/61%  a=4 100%/81%  a=6 100%/100%  a=8 100%/100%   (four-colour acc / top-1 is a colour)
+  N3 layer 21: a=0.25 100%/84%  a=0.5 100%/69%  a=0.75 83%/45%  a=1 64%/35%  a=1.5 50%/33%  a=2 57%/33%  a=3 100%/72%  a=4 100%/100%  a=6 100%/100%  a=8 100%/100%   (four-colour acc / top-1 is a colour)
+  N3 layer 22: a=0.25 100%/56%  a=0.5 42%/33%  a=0.75 33%/33%  a=1 33%/33%  a=1.5 33%/33%  a=2 33%/33%  a=3 91%/33%  a=4 100%/100%  a=6 100%/100%  a=8 100%/100%   (four-colour acc / top-1 is a colour)
+  N3 largest drop with a stronger push (alpha <= 2): 66.9 points at layer 22 (0.25 -> 2.0)
+n3_dead_zone: verdict VERIFIED  -> E:\DocsHouse\1018\Naula\results\n3_dead_zone.json
+=== n4_banana 2026-10-18 12:04
+  N4 balanced accuracy, 384 items: ceiling 50.5% [49.5, 51.6]  none 50.3% [50.0, 50.8]  J 46.4% [44.3, 48.4]  logit 55.2% [53.1, 57.3]
+  N4 logit - none = 4.9 points, 95% CI [2.6, 7.0]
+n4_banana: verdict KILLED (VOID: the model cannot do the task even when told)  -> E:\DocsHouse\1018\Naula\results\n4_banana.json
+=== n5_name_token 2026-10-18 12:05
+  N5 name-token identification, J / logit lens: L0 100/4  L1 100/3  L2 100/3  L3 100/3  L4 100/3  L5 100/3  L6 100/0  L7 100/1  L8 100/0  L9 100/2  L10 99/2  L11 99/1  L12 99/2  L13 98/0  L14 98/0  L15 97/0  L16 89/0  L17 82/1  L18 83/0  L19 80/0  L20 28/0  L21 17/1  L22 7/1  L23 10/9
+n5_name_token: verdict VERIFIED  -> E:\DocsHouse\1018\Naula\results\n5_name_token.json
+=== n6_slow_core 2026-10-18 12:05
+  N6 layer  4: excess persistence at D=1  J-core +0.119  residue +0.183  random-core +0.045   (D=4: +0.008 / +0.025 / +0.005)   J-core energy 16.5%
+  N6 layer  8: excess persistence at D=1  J-core +0.163  residue +0.261  random-core +0.067   (D=4: +0.023 / +0.049 / +0.012)   J-core energy 15.6%
+  N6 layer 12: excess persistence at D=1  J-core +0.186  residue +0.284  random-core +0.075   (D=4: +0.043 / +0.065 / +0.016)   J-core energy 13.5%
+  N6 layer 16: excess persistence at D=1  J-core +0.203  residue +0.263  random-core +0.072   (D=4: +0.054 / +0.072 / +0.019)   J-core energy 10.0%
+  N6 layer 20: excess persistence at D=1  J-core +0.182  residue +0.239  random-core +0.067   (D=4: +0.049 / +0.077 / +0.019)   J-core energy 11.6%
+  N6 layer 23: excess persistence at D=1  J-core +0.119  residue +0.203  random-core +0.073   (D=4: +0.034 / +0.072 / +0.023)   J-core energy 25.6%
+n6_slow_core: verdict KILLED  -> E:\DocsHouse\1018\Naula\results\n6_slow_core.json
+LEDGER: N1 OPEN  N2 OPEN  N3 VERIFIED  N4 KILLED (VOID: the model cannot do the task even when told)  N5 VERIFIED  N6 KILLED

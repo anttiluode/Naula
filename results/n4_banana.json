@@ -1,0 +1,35 @@
+{
+ "claim": "N4 logit-lens injection enables reasoning",
+ "n_items": 384,
+ "balanced_acc": {
+  "ceiling": 0.5052083333333333,
+  "none": 0.5026041666666666,
+  "J": 0.46354166666666663,
+  "logit": 0.5520833333333333
+ },
+ "ci95": {
+  "ceiling": [
+   0.4947916666666667,
+   0.515625
+  ],
+  "none": [
+   0.5,
+   0.5078125
+  ],
+  "J": [
+   0.44270833333333337,
+   0.484375
+  ],
+  "logit": [
+   0.53125,
+   0.5729166666666666
+  ]
+ },
+ "logit_minus_none": 0.04947916666666663,
+ "logit_minus_none_ci95": [
+  0.02604166666666674,
+  0.0703125
+ ],
+ "verdict": "KILLED (VOID: the model cannot do the task even when told)",
+ "seconds": 64
+}

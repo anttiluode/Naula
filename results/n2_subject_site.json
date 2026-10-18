@@ -1,0 +1,21 @@
+{
+ "claim": "N2 name-token effect is subject-specific routing",
+ "alpha": 8.0,
+ "dev": {
+  "('name', 0.5)": 0.2569444444444444,
+  "('name', 1.0)": 0.4791666666666667,
+  "('name', 2.0)": 0.5486111111111112,
+  "('name', 4.0)": 0.5277777777777778,
+  "('name', 8.0)": 0.5625
+ },
+ "test": {
+  "name": 0.5671296296296297,
+  "color": 0.4837962962962963,
+  "first": 0.4583333333333333,
+  "question_end": 1.0
+ },
+ "n_per_site": 432,
+ "name_minus_best_control": 0.08333333333333337,
+ "verdict": "OPEN",
+ "seconds": 26
+}

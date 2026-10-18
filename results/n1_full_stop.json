@@ -1,0 +1,56 @@
+{
+ "claim": "N1 stored value was the full stop",
+ "a": {
+  "n": 192,
+  "top1_is_punctuation": 0.0,
+  "stored_colour_wins_among_four": 0.8385416865348816,
+  "most_common_top1": [
+   [
+    "-green",
+    93
+   ],
+   [
+    "\tcolor",
+    47
+   ],
+   [
+    ".Blue",
+    28
+   ],
+   [
+    "-blue",
+    15
+   ],
+   [
+    " color",
+    5
+   ],
+   [
+    " blue",
+    1
+   ],
+   [
+    "-yellow",
+    1
+   ],
+   [
+    ".Green",
+    1
+   ]
+  ]
+ },
+ "b": {
+  "n": 160,
+  "key_mean_offdiag_cos": 0.3186032474040985,
+  "answer_acc": {
+   "captured": 0.3625,
+   "jlens": 0.7625
+  },
+  "memory_output_colour_acc": {
+   "captured": 0.63125,
+   "jlens": 0.83125
+  }
+ },
+ "verdict": "OPEN",
+ "seconds": 40
+}

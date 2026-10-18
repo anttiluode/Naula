@@ -1,0 +1,8 @@
+{
+ "n1_full_stop": "OPEN",
+ "n2_subject_site": "OPEN",
+ "n3_dead_zone": "VERIFIED",
+ "n4_banana": "KILLED (VOID: the model cannot do the task even when told)",
+ "n5_name_token": "VERIFIED",
+ "n6_slow_core": "KILLED"
+}
